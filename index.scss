@@ -1,0 +1,346 @@
+@import "./reset.scss";
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400&display=swap');
+
+$font: 'Montserrat',
+'Segoe UI',
+Tahoma,
+Geneva,
+Verdana,
+sans-serif,
+Courier,
+monospace;
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: $font;
+    font-size: 16px;
+    color: #454350;
+    background: #f0f0f0;
+}
+
+main {
+    width: 100%;
+    background: white;
+    padding-top: 5rem;
+    margin-bottom: 5rem;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: 50px 1fr 50px;
+    grid-template-rows: auto;
+    grid-template-areas: ". header ."
+        "cards cards cards"
+        ". card-balance ."
+        ". transaction-history ."
+    ;
+    grid-row-gap: 4rem;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 2.75rem;
+}
+
+h3 {
+    font-size: 2.5rem;
+}
+
+p {
+    color: #B8BCBB;
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.title-container {
+    grid-area: header;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding: 20px 0;
+}
+
+.title {
+    grid-column: 1 / 10;
+}
+
+
+.profile-container {
+    grid-column: 10 / 13;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.profile {
+    position: relative;
+    width: fit-content;
+
+    display: flex;
+    justify-content: flex-end;
+
+    .profile-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+
+        background-color: black;
+        color: white;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 4rem;
+    }
+
+    .notifications {
+        position: absolute;
+        left: -20%;
+        top: -20%;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #FF444B;
+        color: white;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+
+        font-size: 2rem;
+        font-weight: 600;
+    }
+}
+
+.cards {
+    grid-area: cards;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 50px;
+    overflow-x: scroll;
+
+    padding-left: 50px;
+    padding-bottom: 80px;
+
+    .card {
+        box-shadow: 23px 28px 66px -28px rgba(0, 0, 0, 0.43);
+        height: 25rem;
+        width: 45rem;
+        border-radius: 20px;
+        padding: 3rem 4rem;
+    }
+
+    .card1 {
+        background-color: #30279A;
+        color: white;
+        font-size: 4rem;
+
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: auto auto;
+        grid-template-areas:
+            "balance balance"
+            "number number"
+            "expiration symbol"
+        ;
+
+        .balance {
+            grid-area: balance;
+            display: flex;
+            align-items: center;
+
+            font-size: 4rem;
+            font-weight: 600;
+        }
+
+        .number {
+            grid-area: number;
+            display: flex;
+            align-items: center;
+
+            font-size: 3.5rem;
+            font-weight: 600;
+        }
+
+        .expiration {
+            grid-area: expiration;
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-areas:
+                "text date . .";
+
+            font-size: 2.25rem;
+            font-weight: 400;
+
+            .text {
+                grid-area: text;
+                display: flex;
+                align-items: center;
+            }
+
+            .date {
+                grid-area: date;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+            }
+        }
+
+        .symbol {
+            grid-area: symbol;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
+
+    .card2 {
+        background-color: #FEC252;
+    }
+}
+
+.subtitle-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+
+
+    .subtitle {
+        grid-column: 1 / 10;
+    }
+
+    .details {
+        font-size: 2rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: #FEC252;
+
+        grid-column: 11 / 13;
+    }
+}
+
+.card-balance {
+    grid-area: card-balance;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 5rem;
+
+    .chart {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto;
+        grid-column-gap: 2rem;
+
+        p {
+            text-align: center;
+        }
+
+        &>.jan,
+        &>.feb,
+        &>.mar,
+        &>.apr {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-row-gap: 2rem;
+        }
+
+        @mixin bar($level) {
+            background: linear-gradient(0deg, rgba(38, 26, 154, 1) 0%, rgba(38, 26, 154, 1) $level - 2%, rgba(255, 255, 255, 1) $level - 2%, rgba(255, 255, 255, 1) $level + 2%, rgba(255, 68, 75, 1) $level + 2%);
+        }
+
+        &__bar {
+            background-color: #261A9A;
+            height: 400px;
+            width: 35px;
+            margin: 0 auto;
+            border-radius: 20px;
+            text-align: center;
+            display: inline-block;
+
+            &.jan {
+                @include bar(74%);
+            }
+
+            &.feb {
+                @include bar(34%);
+            }
+
+            &.mar {
+                @include bar(40%);
+            }
+
+            &.apr {
+                @include bar(50%);
+            }
+        }
+    }
+}
+
+.transaction-history {
+    grid-area: transaction-history;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-row-gap: 5rem;
+
+    &__rows {
+        grid-template-rows: auto;
+    }
+
+    .transaction {
+        &__row {
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: 25% 55% 20%;
+            grid-template-areas:
+                "icon title amount"
+                "icon date amount";
+            grid-row-gap: 2rem;
+        }
+
+        &__icon {
+            grid-area: icon;
+
+            img {
+                height: 180px;
+            }
+        }
+
+        &__title {
+            grid-area: title;
+            margin: auto 0 0 0;
+        }
+
+        &__date {
+            grid-area: date;
+            margin: 0 0 auto 0;
+        }
+
+        &__amount {
+            grid-area: amount;
+            color: #FF444B;
+            font-size: 3.5rem;
+            font-weight: 700;
+
+            margin: auto 0;
+        }
+    }
+}
